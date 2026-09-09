@@ -1485,6 +1485,42 @@ button.cell { cursor: pointer; }
   .about__text { margin-top: 24px; }
 }
 
+/* Невысокие телефоны (iPhone SE 375×667 и подобные): содержимое сцены
+   в обычных отступах занимает ~694px и не влезает в экран — кнопка
+   каталога уходит под сгиб. Поджимаем вертикальные отступы, чтобы
+   сцена оставалась ровно одним экраном. */
+@media (max-width: 700px) and (max-height: 740px) {
+  .stage__inner { padding: 88px 0 30px; }
+  .stage__stat { margin-bottom: 18px; }
+  .stage__subtitle { margin-top: 16px; }
+  .controller { margin-top: 22px; }
+  .stage__go { margin-top: 16px; }
+}
+
+/* Телефон в альбомной ориентации: ширина больше 700px, поэтому мобильные
+   правила выше не срабатывают, а высоты экрана (≈375px) не хватает — сцена
+   вытягивалась до 573px. Сжимаем отступы и заголовок, чтобы первый экран
+   не был почти пустым сверху. */
+@media (orientation: landscape) and (max-height: 520px) {
+  .stage__inner { padding: 76px 0 28px; }
+  .stage__title { font-size: clamp(26px, 4.6vw, 40px); }
+  .stage__stat { margin-bottom: 14px; }
+  .stage__subtitle { margin-top: 14px; }
+  .controller { margin-top: 20px; }
+  .stage__go { margin-top: 14px; }
+}
+
+/* Совсем короткие экраны (568px) — дополнительно уменьшаем заголовок
+   и высоту контроллера */
+@media (max-width: 700px) and (max-height: 600px) {
+  .stage__inner { padding: 76px 0 24px; }
+  .stage__title { font-size: clamp(28px, 8.6vw, 40px); }
+  .stage__stat { margin-bottom: 12px; }
+  .controller { height: 138px; margin-top: 16px; }
+  .track { height: 138px; }
+  .cells { grid-template-rows: 42px 48px 48px; }
+}
+
 @media (max-width: 640px) {
   body { font-size: 16px; }
 
