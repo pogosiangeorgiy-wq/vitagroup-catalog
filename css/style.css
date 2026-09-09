@@ -1050,14 +1050,35 @@ button.cell { cursor: pointer; }
 
 /* Одиночные категории (обёртка/гофра/термо) — в один ряд */
 
+/* Ряд из трёх категорий. Заголовки разной длины («Гофрированная
+   упаковка» переносится на две строки), поэтому колонки выстроены
+   через subgrid: все заголовки в одной строке сетки, все карточки —
+   в другой, и ничего не съезжает по вертикали. */
 .category-row {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
   gap: 14px;
   align-items: start;
 }
 
-.category-row .category { margin-bottom: 0; }
+.category-row .category {
+  margin-bottom: 0;
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  align-content: start;
+}
+
+/* Запасной вариант для браузеров без subgrid: место под две строки */
+@supports not (grid-template-rows: subgrid) {
+  .category-row .category { display: block; }
+  .category-row .category__title {
+    min-height: calc(2.3em + 12px);
+    display: flex;
+    align-items: flex-end;
+  }
+}
 .category-row .products-grid { grid-template-columns: 1fr; }
 
 /* ============================= ПРЕИМУЩЕСТВА ============================= */
@@ -1478,7 +1499,9 @@ button.cell { cursor: pointer; }
   .section__title { font-size: clamp(24px, 7vw, 32px); }
 
   .products-grid { grid-template-columns: 1fr; }
+  /* Одна колонка — выравнивать нечего, subgrid не нужен */
   .category-row { grid-template-columns: 1fr; gap: 32px; }
+  .category-row .category { display: block; }
   .adv-grid { grid-template-columns: 1fr; }
   .adv-photo { min-height: 180px; max-height: 220px; }
 
